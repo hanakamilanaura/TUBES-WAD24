@@ -43,7 +43,6 @@
                     <a href="{{ route('absence.show', $absence->id) }}" class="btn btn-info btn-sm">Show</a>
                 </td>
             </tr>
-            @endforeach
         </tbody>
     </table>
 </div>

@@ -9,7 +9,7 @@ class AbsenceController extends Controller
 {
     public function index()
     {
-        $absence = Absence::all()->get();
+        $absence = Absence::all();
         return view('absence.index', compact('absence'));
     }
 
