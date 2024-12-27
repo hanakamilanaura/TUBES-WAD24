@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_absensi', function (Blueprint $table) {
+        Schema::create('divisions', function (Blueprint $table) {
             $table->id();
-            $table->string('NamaKaryawan');
-            $table->string('DivisiKaryawan');
-            $table->integer('NoTelp');
-            $table->date('Tanggal');
+            $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_absensi');
+        Schema::dropIfExists('divisions');
     }
 };
