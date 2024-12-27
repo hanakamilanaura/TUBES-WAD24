@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\VacationController;
 use App\Http\Controllers\AbsenceController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbsenceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,5 +23,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/vacation', [VacationController::class, 'index'])->name('vacation.index');
 });
+Route::resource('absence', AbsenceController::class);
 
 require __DIR__.'/auth.php';
