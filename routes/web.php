@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbsenceController;
@@ -18,6 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('absence', AbsenceController::class);
+// Route::resource('absence', AbsenceController::class);
+Route::get('/absence', [AbsenceController::class, 'index']);
 
+
+Route::get('/employee', [EmployeeController::class, 'index']);
+Route::get('/employee/edit', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
 require __DIR__.'/auth.php';
