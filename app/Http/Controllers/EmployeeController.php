@@ -1,62 +1,77 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\View\Components\AppLayout;
+use Illuminate\Http\Request;
 use App\Models\Employee; // Pastikan untuk mengimpor model Employee
-use Illuminate\Http\Request; // Pastikan untuk mengimpor Request
 
 class EmployeeController extends Controller
 {
-    ##Menampilkan daftar semua karyawan
+    // Menampilkan daftar semua karyawan
     public function index()
     {
-        $employees = Employee::all(); ##Mengambil semua data karyawan
-        return response()->json($employees); ##Mengembalikan data dalam format JSON
+        $employees = Employee::all(); // Mengambil semua data karyawan
+        return view('employee.index', compact('employees')); // Mengembalikan tampilan dengan data karyawan
     }
 
-    ##Menyimpan karyawan baru ke database
+    // Menampilkan form untuk menambahkan karyawan baru
+    public function create()
+    {
+        return view('employee.create'); // Mengembalikan tampilan untuk form pembuatan karyawan
+    }
+
+    // Menyimpan karyawan baru ke database
     public function store(Request $request)
     {
-        ##Validasi input
+        // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
             'no_telp' => 'required|string|max:255',
             'address' => 'required|string|max:255',
         ]);
 
-        ##Membuat karyawan baru
-        $employee = Employee::create($request->all());
-        return response()->json($employee, 201); ##Mengembalikan karyawan yang baru dibuat dengan status 201 Created
+        // Membuat karyawan baru
+        Employee::create($request->all());
+        return redirect()->route('employee.index')->with('success', 'Employee created successfully.'); // Redirect dengan pesan sukses
     }
 
-    ##Menampilkan karyawan berdasarkan ID
+    // Menampilkan karyawan berdasarkan ID
     public function show($id)
     {
-        $employee = Employee::findOrFail($id); ##Mencari karyawan berdasarkan ID
-        return response()->json($employee); ##Mengembalikan data karyawan dalam format JSON
+        $employee = Employee::findOrFail($id); // Mencari karyawan berdasarkan ID
+        return view('employee.show', compact('employee')); // Mengembalikan tampilan dengan data karyawan
     }
 
-    ##Memperbarui karyawan di database
+    // Menampilkan form untuk mengedit karyawan
+    public function edit($id)
+    {
+        $employee = Employee::findOrFail($id); // Mencari karyawan berdasarkan ID
+        return view('employee.edit', compact('employee')); // Mengembalikan tampilan untuk form edit
+    }
+
+    // Memperbarui karyawan di database
     public function update(Request $request, $id)
     {
-        ##Validasi input
+        // Validasi input
         $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'no_telp' => 'sometimes|required|string|max:255',
             'address' => 'sometimes|required|string|max:255',
         ]);
 
-        $employee = Employee::findOrFail($id); ##Mencari karyawan berdasarkan ID
-        $employee->update($request->all()); ##Memperbarui data karyawan
-        return response()->json($employee); ##Mengembalikan data karyawan yang telah diperbarui
+        $employee = Employee::findOrFail($id); // Mencari karyawan berdasarkan ID
+        $employee->update($request->all()); // Memperbarui data karyawan
+
+        return redirect()->route('employee.index')->with('success', 'Employee updated successfully.'); // Redirect dengan pesan sukses
     }
 
-    ##Menghapus karyawan dari database
+    // Menghapus karyawan dari database
     public function destroy($id)
     {
-        $employee = Employee::findOrFail($id); ##Mencari karyawan berdasarkan ID
-        $employee->delete(); ##Menghapus karyawan
-        return response()->json(null, 204); ##Mengembalikan respons kosong dengan status 204 No Content
+        $employee = Employee::findOrFail($id); // Mencari karyawan berdasarkan ID
+        $employee->delete(); // Menghapus karyawan
+
+        return redirect()->route('employee.index')->with('success', 'Employee deleted successfully.'); // Redirect dengan pesan sukses
     }
 }
