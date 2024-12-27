@@ -17,10 +17,8 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $guarded = [
+        'id'
     ];
 
     /**
@@ -45,4 +43,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function vacations()
+    {
+        return $this->hasMany(Vacation::class, 'edit_by');
+    }
+
+
 }
