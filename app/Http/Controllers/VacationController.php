@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vacation;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class VacationController extends Controller
@@ -11,7 +12,11 @@ class VacationController extends Controller
     public function index()
     {
         $vacations = Vacation::with(['employee', 'editor'])->get(); // Mengambil semua cuti beserta data karyawan dan editor
-        return response()->json($vacations); // Mengembalikan data dalam format JSON
+        return view('vacation.index', compact('vacations')); // Mengembalikan view dengan data cuti
+    }
+    public function create(){
+        $employees = Employee::all();
+        return view('vacation.create', compact('employees'));
     }
 
     // Menyimpan cuti baru ke database
@@ -29,14 +34,14 @@ class VacationController extends Controller
 
         // Membuat cuti baru
         $vacation = Vacation::create($request->all());
-        return response()->json($vacation, 201); // Mengembalikan cuti yang baru dibuat dengan status 201 Created
+        return redirect()->route('vacation.create')->with('success', 'Vacation created successfully.');
     }
 
     // Menampilkan cuti berdasarkan ID
     public function show($id)
     {
         $vacation = Vacation::with(['employee', 'editor'])->findOrFail($id); // Mencari cuti berdasarkan ID
-        return response()->json($vacation); // Mengembalikan data cuti dalam format JSON
+        return view('vacation.index', compact('vacation')); // Menampilkan data cuti dalam view
     }
 
     // Memperbarui cuti di database
@@ -54,7 +59,7 @@ class VacationController extends Controller
 
         $vacation = Vacation::findOrFail($id); // Mencari cuti berdasarkan ID
         $vacation->update($request->all()); // Memperbarui data cuti
-        return response()->json($vacation); // Mengembalikan data cuti yang telah diperbarui
+        return redirect()->route('vacation.index')->with('success', 'Vacation updated successfully.'); // Mengembalikan data cuti yang telah diperbarui
     }
 
     // Menghapus cuti dari database
@@ -62,6 +67,6 @@ class VacationController extends Controller
     {
         $vacation = Vacation::findOrFail($id); // Mencari cuti berdasarkan ID
         $vacation->delete(); // Menghapus cuti
-        return response()->json(null, 204); // Mengembalikan respons kosong dengan status 204 No Content
+        return redirect()->route('vacation.index')->with('success', 'Vacation deleted successfully.'); // Mengembalikan respons kosong dengan status 204 No Content
     }
 }

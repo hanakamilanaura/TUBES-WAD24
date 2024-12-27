@@ -11,6 +11,6 @@
             </defs>
         </svg>
         <h1 class="text-xl font-extrabold text-gray-900 ml-2">Dashboard</h1>
-        <p >Hi, {{explode(' ', Auth::user()->name)[0]}} here’s take a look at your performance and analytics</p>
+        <p class="greeting">Hi, {{explode(' ', Auth::user()->name)[0]}} here’s take a look at your performance and analytics</p>
     </div>
 @endsection
