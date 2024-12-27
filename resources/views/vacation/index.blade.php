@@ -1,5 +1,4 @@
 @extends('layouts.sidebar')
-@section('title', 'Vacation')
 @section('content')
     <div class="flex items-center">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,8 +34,8 @@
                         <td class="py-2 px-4 border-b">{{ $vacation->reason }}</td>
                         <td class="py-2 px-4 border-b">{{ $vacation->status }}</td>
                         <td class="py-2 px-4 border-b">
-                            <a href="{{ route('vacations.edit', $vacation->id) }}" class="text-blue-500">Edit</a>
-                            <form action="{{ route('vacations.destroy', $vacation->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('vacation.edit', $vacation->id) }}" class="text-blue-500">Edit</a>
+                            <form action="{{ route('vacation.destroy', $vacation->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500">Delete</button>
@@ -49,6 +48,6 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ route('vacations.store') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vacation</a>
+        <a href="{{ route('vacation.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vacation</a>
     </div>
 @endsection

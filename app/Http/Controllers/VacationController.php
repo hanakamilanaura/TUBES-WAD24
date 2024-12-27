@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vacation;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class VacationController extends Controller
@@ -12,6 +13,10 @@ class VacationController extends Controller
     {
         $vacations = Vacation::with(['employee', 'editor'])->get(); // Mengambil semua cuti beserta data karyawan dan editor
         return view('vacation.index', compact('vacations')); // Mengembalikan view dengan data cuti
+    }
+    public function create(){
+        $employees = Employee::all();
+        return view('vacation.create', compact('employees'));
     }
 
     // Menyimpan cuti baru ke database

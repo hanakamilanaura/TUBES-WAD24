@@ -1,5 +1,4 @@
 @extends('layouts.sidebar')
-@extends('title', 'Create Vacation')
 @section('content')
 <div class="flex items-center mb-4">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +13,7 @@
     <h1 class="text-xl font-extrabold text-gray-900 ml-2">Create Vacation</h1>
 </div>
 
-<form action="{{ route('vacations.store') }}" method="POST" class="space-y-4">
+<form action="{{ route('vacation.store') }}" method="POST" class="space-y-4">
     @csrf
     <div>
         <label for="id_employee" class="block text-sm font-medium text-gray-700">Employee</label>
@@ -52,7 +51,7 @@
 
     <div>
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
-        <a href="{{ route('vacations.index') }}" class="ml-2 text-gray-500">Cancel</a>
+        <a href="{{ route('vacation.index') }}" class="ml-2 text-gray-500">Cancel</a>
     </div>
 </form>
 @endsection
