@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\VacationController;
+use App\Http\Controllers\AbsenceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/vacation/index', [VacationController::class, 'index'])->name('vacation.index');
 });
 
 require __DIR__.'/auth.php';
