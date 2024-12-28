@@ -1,81 +1,58 @@
-<?php
+{{-- resources/views/division/index.blade.php --}}
 
-namespace App\Http\Controllers;
+@extends('layouts.app')
 
-use App\Models\Division; // Mengimpor model Division
-use Illuminate\Http\Request;
+@section('content')
+<div class="container">
+    <h1 class="mb-4">Divisions</h1>
 
-class DivisionController extends Controller
-{
-    // Menampilkan daftar semua divisi
-    public function index()
-    {
-        $divisions = Division::all(); // Mengambil semua data divisi
-        return view('division.index', compact('divisions')); // Mengembalikan tampilan dengan data divisi
-    }
+    {{-- Pesan sukses jika ada --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-    // Menampilkan form untuk menambahkan divisi baru
-    public function create()
-    {
-        return view('division.create'); // Mengembalikan tampilan untuk form pembuatan divisi
-    }
+    {{-- Tombol untuk membuat divisi baru --}}
+    <a href="{{ route('division.create') }}" class="btn btn-primary mb-4">Create New Division</a>
 
-    // Menyimpan divisi baru ke database
-    public function store(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:1000',
-        ]);
+    {{-- Tabel Daftar Divisi --}}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($divisions as $division)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $division->name }}</td>
+                    <td>{{ $division->description }}</td>
+                    <td>
+                        {{-- Tautan untuk melihat detail divisi --}}
+                        <a href="{{ route('division.show', $division->id) }}" class="btn btn-info btn-sm">Lihat</a>
+                        
+                        {{-- Tautan untuk mengedit divisi --}}
+                        <a href="{{ route('division.edit', $division->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
-        // Membuat divisi baru
-        Division::create($request->all());
-        return redirect()->route('division.index')->with('success', 'Division created successfully.'); // Redirect dengan pesan sukses
-    }
-
-    // Menampilkan divisi berdasarkan ID
-    public function show($id)
-    {
-        $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        return view('division.show', compact('division')); // Mengembalikan tampilan dengan data divisi
-    }
-
-    // Menampilkan form untuk mengedit divisi
-    public function edit($id)
-    {
-        $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        return view('division.edit', compact('division')); // Mengembalikan tampilan untuk form edit
-    }
-
-    // Memperbarui divisi di database
-    public function update(Request $request, $id)
-    {
-        // Validasi input
-        $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string|max:1000',
-        ]);
-
-        $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        $division->update($request->all()); // Memperbarui data divisi
-
-        return redirect()->route('division.index')->with('success', 'Division updated successfully.'); // Redirect dengan pesan sukses
-    }
-
-    // Menghapus divisi dari database
-    public function destroy($id)
-    {
-        $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        $division->delete(); // Menghapus divisi
-
-        return redirect()->route('division.index')->with('success', 'Division deleted successfully.'); // Redirect dengan pesan sukses
-    }
-
-    // Menampilkan halaman index untuk divisi
-    public function divisionIndex()
-    {
-        $divisions = Division::all(); // Mengambil semua data divisi
-        return view('division.index', ['divisions' => $divisions]); // Mengembalikan tampilan index dengan data divisi
-    }
-}
+                        {{-- Form untuk menghapus divisi --}}
+                        <form action="{{ route('division.destroy', $division->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this division?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="4" class="text-center">No divisions found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+@endsection
