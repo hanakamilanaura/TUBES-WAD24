@@ -36,4 +36,12 @@ Route::get('/absence/{id}/edit', [AbsenceController::class, 'getEditForm'])->nam
 Route::put('/absence/{id}', [AbsenceController::class, 'update'])->name('absence.update');
 Route::delete('/absence/{id}', [AbsenceController::class, 'destroy'])->name('absence.destroy');
 
+Route::get('/division', [DivisionController::class, 'index'])->name('division.index');
+Route::get('/division/create', [DivisionController::class, 'create'])->name('division.create');
+Route::post('/division', [DivisionController::class, 'store'])->name('division.store');
+Route::get('/division/{id}/edit', [DivisionController::class, 'edit'])->name('division.edit');
+Route::put('/division/{id}', [DivisionController::class, 'update'])->name('division.update');
+Route::delete('/division/{id}', [DivisionController::class, 'destroy'])->name('division.destroy');
+
+
 require __DIR__.'/auth.php';

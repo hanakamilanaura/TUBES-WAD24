@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\View\Components\AppLayout;
+use App\Models\Division; // Mengimpor model Division
 use Illuminate\Http\Request;
-use App\Models\Division; // Pastikan untuk mengimpor model Employee
 
 class DivisionController extends Controller
 {
@@ -71,5 +70,12 @@ class DivisionController extends Controller
         $division->delete(); // Menghapus divisi
 
         return redirect()->route('division.index')->with('success', 'Division deleted successfully.'); // Redirect dengan pesan sukses
+    }
+
+    // Menampilkan halaman index untuk divisi
+    public function divisionIndex()
+    {
+        $divisions = Division::all(); // Mengambil semua data divisi
+        return view('division.index', ['divisions' => $divisions]); // Mengembalikan tampilan index dengan data divisi
     }
 }
