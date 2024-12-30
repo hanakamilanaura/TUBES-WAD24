@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\VacationController;
 use App\Http\Controllers\AbsenceController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +44,8 @@ Route::put('/division/{id}', [DivisionController::class, 'update'])->name('divis
 Route::delete('/division/{id}', [DivisionController::class, 'destroy'])->name('division.destroy');
 
 
+
+Route::get('/employee', [EmployeeController::class, 'index']);
+Route::get('/employee/edit', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
 require __DIR__.'/auth.php';
