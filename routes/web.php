@@ -45,7 +45,11 @@ Route::delete('/division/{id}', [DivisionController::class, 'destroy'])->name('d
 
 
 
-Route::get('/employee', [EmployeeController::class, 'index']);
-Route::get('/employee/edit', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
+Route::get('/employee/{id}/edit)', [EmployeeController::class, 'edit'])->name('employee.edit');
 Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+Route::post('/employee/store', [EmployeeController::class, 'store'])->name('employee.store');
+Route::get('/employee/{id}/update', [EmployeeController::class, 'update'])->name('employee.update');
+Route::delete('/employee/destroy', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+Route::post('/employee/{id}', [EmployeeController::class, 'show'])->name('employee.show');
 require __DIR__.'/auth.php';

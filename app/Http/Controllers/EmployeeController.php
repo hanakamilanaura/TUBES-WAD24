@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\View\Components\AppLayout;
 use Illuminate\Http\Request;
 use App\Models\Employee; // Pastikan untuk mengimpor model Employee
 
