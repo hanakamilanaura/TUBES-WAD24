@@ -27,6 +27,7 @@
         <table class="min-w-full bg-white">
             <thead>
                 <tr>
+                    <th class="py-2 px-4 border-b">No</th>
                     <th class="py-2 px-4 border-b">Employee Name</th>
                     <th class="py-2 px-4 border-b">Start Date</th>
                     <th class="py-2 px-4 border-b">End Date</th>
@@ -38,14 +39,21 @@
             <tbody>
                 @foreach($vacations as $vacation)
                     <tr>
+                        <td class="py-2 px-4 border-b">{{ $loop->iteration }}</td>
                         <td class="py-2 px-4 border-b">{{ $vacation->employee->name }}</td>
                         <td class="py-2 px-4 border-b">{{ $vacation->start_date }}</td>
                         <td class="py-2 px-4 border-b">{{ $vacation->end_date }}</td>
                         <td class="py-2 px-4 border-b">{{ $vacation->reason }}</td>
-                        <td class="py-2 px-4 border-b">{{ $vacation->status }}</td>
+                        @if($vacation->status == 'pending')
+                        <td class="py-2 px-4 border-b">Pending</td>
+                        @elseif($vacation->status == 'approved')
+                        <td class="py-2 px-4 border-b">Approved</td>
+                        @elseif($vacation->status == 'rejected')
+                        <td class="py-2 px-4 border-b">Rejected</td>
+                        @endif
                         <td class="py-2 px-4 border-b">
                             <a href="{{ route('vacation.edit', $vacation->id) }}" class="text-blue-500">Edit</a>
-                            <form action="{{ route('vacation.destroy', $vacation->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('vacation.destroy', $vacation->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this vacation?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500">Delete</button>
