@@ -10,7 +10,17 @@
                 </linearGradient>
             </defs>
         </svg>
-        <h1 class="text-xl font-extrabold text-gray-900 ml-2">Dashboard</h1>
+        <h1 class="text-xl font-extrabold text-gray-900 ml-2">Vacation</h1>
+    </div>
+
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-4 rounded-md mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    <div class="mt-4 mb-4">
+        <a href="{{ route('vacation.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vacation</a>
     </div>
 
     <div class="overflow-x-auto">
@@ -47,7 +57,5 @@
         </table>
     </div>
 
-    <div class="mt-4">
-        <a href="{{ route('vacation.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vacation</a>
-    </div>
+
 @endsection

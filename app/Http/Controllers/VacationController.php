@@ -32,16 +32,31 @@ class VacationController extends Controller
             'edit_by' => 'required|exists:users,id',
         ]);
 
+        Vacation::create([
+            'id_employee' => $request->id_employee,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'reason' => $request->reason,
+            'status' => 'Pending',
+        ]);
+
         // Membuat cuti baru
-        $vacation = Vacation::create($request->all());
-        return redirect()->route('vacation.create')->with('success', 'Vacation created successfully.');
+        Vacation::create($request->all());
+        return redirect()->route('vacation.index')->with('success', 'Vacation created successfully.');
     }
 
     // Menampilkan cuti berdasarkan ID
     public function show($id)
     {
         $vacation = Vacation::with(['employee', 'editor'])->findOrFail($id); // Mencari cuti berdasarkan ID
-        return view('vacation.index', compact('vacation')); // Menampilkan data cuti dalam view
+        return view('vacation.show', compact('vacation')); // Menampilkan data cuti dalam view
+    }
+
+    // Menampilkan form untuk mengedit karyawan
+    public function edit($id)
+    {
+        $vacation = Employee::findOrFail($id); // Mencari karyawan berdasarkan ID
+        return view('vacation.edit', compact('vacation')); // Mengembalikan tampilan untuk form edit
     }
 
     // Memperbarui cuti di database

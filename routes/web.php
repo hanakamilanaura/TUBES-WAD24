@@ -24,10 +24,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/vacation', [VacationController::class, 'index'])->name('vacation.index');
 Route::get('/vacation/create', [VacationController::class, 'create'])->name('vacation.create');
-Route::post('/vacation', [VacationController::class, 'store'])->name('vacation.store');
-Route::get('/vacation/{id}/edit', [VacationController::class, 'getEditForm'])->name('vacation.edit');
-Route::put('/vacation/{id}', [VacationController::class, 'update'])->name('vacation.update');
-Route::delete('/vacation/{id}', [VacationController::class, 'destroy'])->name('vacation.destroy');
+Route::post('/vacation/store', [VacationController::class, 'store'])->name('vacation.store');
+Route::get('/vacation/{id}/edit', [VacationController::class, 'edit'])->name('vacation.edit');
+Route::put('/vacation/{id}/update', [VacationController::class, 'update'])->name('vacation.update');
+Route::delete('/vacation/{id}/destroy', [VacationController::class, 'destroy'])->name('vacation.destroy');
+Route::get('/vacation/{id}', [VacationController::class, 'show'])->name('vacation.show');
 
 Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
 Route::get('/absence/create', [AbsenceController::class, 'getCreateForm'])->name('absence.create');
