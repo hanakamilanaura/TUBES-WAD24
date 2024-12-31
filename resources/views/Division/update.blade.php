@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <h1>Edit Division</h1>
 
-        <form action="{{ route('division.update', $division->id) }}" method="POST">
+        <form action="{{ route('Division.update', $division->id) }}" method="POST">
             @csrf
             @method('PUT')
             
@@ -25,7 +25,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('division.index') }}" class="btn btn-secondary">Back</a>
+            <a href="{{ route('Division.index') }}" class="btn btn-secondary">Back</a>
         </form>
     </div>
 

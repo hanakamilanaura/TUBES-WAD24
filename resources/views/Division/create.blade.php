@@ -23,7 +23,7 @@
         </div>
     @endif --}}
 
-    <form action="{{ route('division.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('Division.store') }}" method="POST" class="space-y-4">
         @csrf
 
         <div>
@@ -38,7 +38,7 @@
 
         <div>
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create Division</button>
-            <a href="{{ route('division.index') }}" class="ml-2 text-gray-500">Cancel</a>
+            <a href="{{ route('Division.index') }}" class="ml-2 text-gray-500">Cancel</a>
         </div>
     </form>
 @endsection
