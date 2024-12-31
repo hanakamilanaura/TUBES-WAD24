@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\View\Components\AppLayout;
 use Illuminate\Http\Request;
-use App\Models\Division; // Pastikan untuk mengimpor model Employee
-
+use App\Models\Division;
 
 class DivisionController extends Controller
 {
@@ -32,12 +31,10 @@ class DivisionController extends Controller
         ]);
 
         // Membuat divisi baru
-        Division::create($request->all());
         Division::create([
             'name' => $request->name,
             'description' => $request->description,
         ]);
-
         return redirect()->route('division.index')->with('success', 'Division created successfully.'); // Redirect dengan pesan sukses
     }
 
@@ -52,7 +49,6 @@ class DivisionController extends Controller
     public function edit($id)
     {
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        return view('division.edit', compact('division')); // Mengembalikan tampilan untuk form edit
         return view('division.update', compact('division')); // Mengembalikan tampilan untuk form edit
     }
 
@@ -66,7 +62,6 @@ class DivisionController extends Controller
         ]);
 
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        $division->update($request->all()); // Memperbarui data divisi
         $division->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -84,4 +79,3 @@ class DivisionController extends Controller
         return redirect()->route('division.index')->with('success', 'Division deleted successfully.'); // Redirect dengan pesan sukses
     }
 }
-
