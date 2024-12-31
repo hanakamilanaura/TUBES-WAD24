@@ -1,14 +1,4 @@
-{{-- resources/views/division/index.blade.php --}}
 
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <h1 class="mb-4">Divisions</h1>
-
-    {{-- Pesan sukses jika ada --}}
-    @if (session('success'))
-        <div class="alert alert-success">
 
 @extends('layouts.sidebar')
 @section('content')
