@@ -7,6 +7,7 @@ use App\Models\Absence;
 use App\Models\Employee;
 use App\Models\Division;
 use App\Models\Shift;
+use Carbon\Carbon;
 use App\Http\Controllers\EmpolyeeController;
 
 class AbsenceController extends Controller
@@ -114,5 +115,12 @@ class AbsenceController extends Controller
         $absences->delete();
 
         return redirect()->route('absence.index')->with('success', 'Absence deleted successfully.');
+    }
+
+    public function dashboard()
+    {
+        $totalAbsences = Absence::count();
+
+        return view('dashboard.index', compact('totalAbsences'));
     }
 }

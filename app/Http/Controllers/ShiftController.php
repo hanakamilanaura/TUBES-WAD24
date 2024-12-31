@@ -82,4 +82,10 @@ class ShiftController extends Controller
         $shift->delete(); // Menghapus shift
         return redirect()->route('shift.index')->with('success', 'Shift deleted successfully.'); // Redirect ke index dengan pesan sukses
     }
+    public function dashboard()
+    {
+        $totalShifts = Shift::count();
+
+        return view('dashboard.index', compact('totalShifts'));
+    }
 }
