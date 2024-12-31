@@ -17,8 +17,8 @@
     <form action="{{ route('absence.store') }}" method="POST" class="space-y-4">
         @csrf
         <div>
-            <label for="employee" class="block text-sm font-medium text-gray-700">Employee</label>
-            <select id="employee" name="employee" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="id_employee" class="block text-sm font-medium text-gray-700">Employee</label>
+            <select id="id_employee" name="id_employee" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Employee</option>
             @foreach($employees as $employee)
                     <option value="{{ $employee->id }}">{{ $employee->name }}</option>
@@ -26,15 +26,15 @@
             </select>
         </div>
 
-        <div>
+        {{-- <div>
             <label for="last_division" class="block text-sm font-medium text-gray-700">Last Division</label>
             <input type="text" id="last_division" name="last_division" required placeholder="Last Division" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-        </div>
+        </div> --}}
 
 
         <div>
-            <label for="division" class="block text-sm font-medium text-gray-700">Division</label>
-            <select id="division" name="division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="current_division" class="block text-sm font-medium text-gray-700">Division</label>
+            <select id="current_division" name="current_division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Division</option>
             @foreach($divisions as $division)
                 <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -42,7 +42,7 @@
             </select>
         </div>
 
-        <div>
+        {{-- <div>
             <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
             <input type="time" id="time" name="time" required placeholder="Time" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"></input>
         </div>
@@ -51,11 +51,11 @@
         <div>
             <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
             <input type="date" id="date" name="date" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-        </div>
+        </div> --}}
 
         <div>
-            <label for="shift" class="block text-sm font-medium text-gray-700">Shift</label>
-            <select id="shift" name="shift" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="shift_id" class="block text-sm font-medium text-gray-700">Shift</label>
+            <select id="shift_id" name="shift_id" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Shift</option>
             @foreach($shifts as $shift)
                     <option value="{{ $shift->id }}">{{ $shift->name }}</option>
@@ -73,13 +73,13 @@
             </select>
         </div>
 
-        <div>
+        {{-- <div>
             <label for="is_late" class="block text-sm font-medium text-gray-700">Is Late</label>
             <select id="is_late" name="is_late" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="Present">On Time</option>
                 <option value="Permission">Late</option>
             </select>
-        </div>
+        </div> --}}
 
         <div class="d-flex justify-content-between mt-4">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>

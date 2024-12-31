@@ -40,6 +40,7 @@ Route::post('/absence/store', [AbsenceController::class, 'store'])->name('absenc
 Route::get('/absence/{id}/edit', [AbsenceController::class, 'edit'])->name('absence.edit');
 Route::put('/absence/{id}', [AbsenceController::class, 'update'])->name('absence.update');
 Route::delete('/absence/{id}', [AbsenceController::class, 'destroy'])->name('absence.destroy');
+Route::get('/absence/{id}', [AbsenceController::class, 'show'])->name('absence.show');
 
 Route::get('/division', [DivisionController::class, 'index'])->name('division.index');
 Route::get('/division/create', [DivisionController::class, 'create'])->name('division.create');

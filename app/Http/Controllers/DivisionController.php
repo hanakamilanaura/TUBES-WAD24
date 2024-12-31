@@ -32,7 +32,6 @@ class DivisionController extends Controller
         ]);
 
         // Membuat divisi baru
-        Division::create($request->all());
         Division::create([
             'name' => $request->name,
             'description' => $request->description,
