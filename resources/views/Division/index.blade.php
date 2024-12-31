@@ -18,11 +18,8 @@
             {{ session('success') }}
         </div>
     @endif
-        </tbody>
-    </table>
-</div>
     <div class="mb-4">
-        <a href="{{ route('division.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Division</a>
+        <a href="{{ route('Division.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Division</a>
     </div>
 
     <div class="overflow-x-auto">
@@ -42,8 +39,8 @@
                         <td class="py-2 px-4 border-b">{{ $division->name }}</td>
                         <td class="py-2 px-4 border-b">{{ $division->description }}</td>
                         <td class="py-2 px-4 border-b">
-                            <a href="{{ route('division.edit', $division->id) }}" class="text-blue-500">Edit</a>
-                            <form action="{{ route('division.destroy', $division->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this division?');">
+                            <a href="{{ route('Division.edit', $division->id) }}" class="text-blue-500">Edit</a>
+                            <form action="{{ route('Division.destroy', $division->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this division?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500">Delete</button>

@@ -46,12 +46,12 @@ Route::get('/absence/{id}/edit', [AbsenceController::class, 'edit'])->name('abse
 Route::put('/absence/{id}', [AbsenceController::class, 'update'])->name('absence.update');
 Route::delete('/absence/{id}', [AbsenceController::class, 'destroy'])->name('absence.destroy');
 
-Route::get('/division', [DivisionController::class, 'index'])->name('division.index');
-Route::get('/division/create', [DivisionController::class, 'create'])->name('division.create');
-Route::post('/division/store', [DivisionController::class, 'store'])->name('division.store');
-Route::get('/division/{id}/edit', [DivisionController::class, 'edit'])->name('division.edit');
-Route::put('/division/{id}/update', [DivisionController::class, 'update'])->name('division.update');
-Route::delete('/division/{id}/destroy', [DivisionController::class, 'destroy'])->name('division.destroy');
+Route::get('/division', [DivisionController::class, 'index'])->name('Division.index');
+Route::get('/division/create', [DivisionController::class, 'create'])->name('Division.create');
+Route::post('/division/store', [DivisionController::class, 'store'])->name('Division.store');
+Route::get('/division/{id}/edit', [DivisionController::class, 'edit'])->name('Division.edit');
+Route::put('/division/{id}/update', [DivisionController::class, 'update'])->name('Division.update');
+Route::delete('/division/{id}/destroy', [DivisionController::class, 'destroy'])->name('Division.destroy');
 
 Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
 Route::get('/employee/{id}/edit)', [EmployeeController::class, 'edit'])->name('employee.edit');
@@ -69,6 +69,8 @@ Route::get('/shift/{id}/edit', [ShiftController::class, 'edit'])->name('shift.ed
 Route::put('/shift/{id}/update', [ShiftController::class, 'update'])->name('shift.update');
 Route::delete('/shift/{id}/destroy', [ShiftController::class, 'destroy'])->name('shift.destroy');
 Route::get('/shift/{id}', [ShiftController::class, 'show'])->name('shift.show');
+
+
 Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
 Route::get('/employee/{id}/edit)', [EmployeeController::class, 'edit'])->name('employee.edit');
 Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');

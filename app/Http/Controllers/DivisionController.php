@@ -31,6 +31,7 @@ class DivisionController extends Controller
         ]);
 
         // Membuat divisi baru
+        Division::create($request->all());
         Division::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -49,6 +50,7 @@ class DivisionController extends Controller
     public function edit($id)
     {
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
+        return view('division.edit', compact('division')); // Mengembalikan tampilan untuk form edit
         return view('division.update', compact('division')); // Mengembalikan tampilan untuk form edit
     }
 
@@ -62,6 +64,7 @@ class DivisionController extends Controller
         ]);
 
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
+        $division->update($request->all()); // Memperbarui data divisi
         $division->update([
             'name' => $request->name,
             'description' => $request->description,
