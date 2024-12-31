@@ -23,6 +23,10 @@
         <a href="{{ route('vacation.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vacation</a>
     </div>
 
+    <div class="mt-4 mb-4">
+        <a href="/export-pdf" class="bg-blue-500 text-white px-4 py-2 rounded">Export to PDF</a>
+    </div>
+
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white">
             <thead>
