@@ -10,45 +10,31 @@
                 </linearGradient>
             </defs>
         </svg>
-        <h1 class="text-xl font-extrabold text-gray-900 ml-2">Update Vacation</h1>
+        <h1 class="text-xl font-extrabold text-gray-900">Update Shift</h1>
     </div>
 
-    <form action="{{ route('vacations.update', $vacation->id) }}" method="POST" class="space-y-4">
+    <form action="{{ route('shift.update', $shift->id) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
 
         <div>
-            <label for="id_employee" class="block text-sm font-medium text-gray-700">Employee</label>
-            <input type="text" id="start_date" name="start_date" value="{{ $vacation->employee->name }}" readonly class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="name" class="block text-sm font-medium text-gray-700">Shift Name</label>
+            <input type="text" id="name" name="name" value="{{ $shift->name }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50" placeholder="Enter shift name">
         </div>
 
         <div>
-            <label for="start_date" class="block text-sm font-medium text-gray-700">Start Date</label>
-            <input type="date" id="start_date" name="start_date" value="{{ $vacation->start_date }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="shift_start" class="block text-sm font-medium text-gray-700">Start Time</label>
+            <input type="time" id="shift_start" name="shift_start" value="{{\Carbon\Carbon::parse($shift->shift_start)->format('H:i')}}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
         </div>
 
         <div>
-            <label for="end_date" class="block text-sm font-medium text-gray-700">End Date</label>
-            <input type="date" id="end_date" name="end_date" value="{{ $vacation->end_date }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="shift_end" class="block text-sm font-medium text-gray-700">End Time</label>
+            <input type="time" id="shift_end" name="shift_end" value="{{ \Carbon\Carbon::parse($shift->shift_end)->format('H:i') }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
         </div>
 
         <div>
-            <label for="reason" class="block text-sm font-medium text-gray-700">Reason</label>
-            <textarea id="reason" name="reason" rows="3" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">{{ $vacation->reason }}</textarea>
-        </div>
-
-        <div>
-            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-            <select id="status" name="status" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="Pending" {{ $vacation->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                <option value="Approved" {{ $vacation->status == 'Approved' ? 'selected' : '' }}>Approved</option>
-                <option value="Rejected" {{ $vacation->status == 'Rejected' ? 'selected' : '' }}>Rejected</option>
-            </select>
-        </div>
-
-        <div>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
-            <a href="{{ route('vacations.index') }}" class="ml-2 text-gray-500">Cancel</a>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update Shift</button>
+            <a href="{{ route('shift.index') }}" class="ml-2 text-gray-500">Cancel</a>
         </div>
     </form>
 @endsection
