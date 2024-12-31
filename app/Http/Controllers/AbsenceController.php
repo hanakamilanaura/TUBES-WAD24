@@ -33,12 +33,12 @@ class AbsenceController extends Controller
         $request->validate([
             'date' => 'required|date',
             'time' => 'required|date_format:H:i:s',
-            'attendance' => 'required|boolean',
-            'is_late' => 'required|boolean',
-            'last_division' => 'required',
-            'current_division' => 'required',
-            'id_employee' => 'required|integer',
-            'shift_id' => 'required|integer',
+            'attendance' => 'required|string',
+            'is_late' => 'required|string',
+            'last_division' => 'required|integer|min:0|exists:divisions,id',
+            'current_division' => 'required|integer|min:0|exists:divisions,id',
+            'id_employee' => 'required|integer|min:0|exists:employees,id',
+            'shift_id' => 'required|integer|min:0|exists:shifts,id',
         ]);
 
         Absence::create(attributes: $request->all());
@@ -66,13 +66,13 @@ class AbsenceController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'time' => 'required|date_format:H:i:s',
-            'attendance' => 'required|boolean',
-            'is_late' => 'required|boolean',
-            'last_division' => 'required',
-            'current_division' => 'required',
-            'id_employee' => 'required|integer',
-            'shift_id' => 'required|integer',
+            'time' => 'required|date_format:H:i',
+            'attendance' => 'required|string',
+            'is_late' => 'required|string',
+            'last_division' => 'required|integer|min:0|exists:divisions,id',
+            'current_division' => 'required|integer|min:0|exists:divisions,id',
+            'id_employee' => 'required|integer|min:0|exists:employees,id',
+            'shift_id' => 'required|integer|min:0|exists:shifts,id',
         ]);
 
         $absences = Absence::find($id);

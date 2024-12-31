@@ -13,41 +13,20 @@
         </svg>
         <h1 class="text-xl font-extrabold text-gray-900 ml-2">Details Attendance</h1>
     </div>
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <td>{{ $absence->employee->name }}</td>
-        </tr>
-        <tr>
-            <th>last Divison</th>
-            <td>{{ $absence->division->last_division }}</td>
-        </tr>
-        <tr>
-            <th>Division</th>
-            <td>{{ $absence->division->current_division }}</td>
-        </tr>
-        <tr>
-            <th>Time</th>
-            <td>{{ $absence->time }}</td>
-        </tr>
-        <tr>
-            <th>Date</th>
-            <td>{{ $absence->date }}</td>
-        </tr>
-        <tr>
-            <th>Shift</th>
-            <td>{{ $absence->shift->shift }}</td>
-        </tr>
-        <tr>
-            <th>Attandance</th>
-            <td>{{ $absence->attandance }}</td>
-        </tr>
-        <tr>
-            <th>Is Late</th>
-            <td>{{ $absence->is_late }}</td>
-        </tr>
-    </table>
-
-    <a href="{{ route('absence.index') }}" class="btn btn-secondary">Back</a>
+    <div class="bg-white p-4 rounded-md shadow">
+        <p><strong>Name:</strong> {{ $absence->employee->name  }}</p>
+        <p><strong>Last Division:</strong> {{ $absence->division->last_division }}</p>
+        <p><strong>Division:</strong> {{ $absence->division->current_division }}</p>
+        <p><strong>Time:</strong> {{ $absence->time }}</p>
+        <p><strong>Date:</strong> {{ $absence->date  }}</p>
+        <p><strong>Shift:</strong> {{ $absence->shift->shift }}</p>
+        <p><strong>Time:</strong> {{ $absence->time }}</p>
+        <p><strong>Attandance:</strong> {{ $absence->attendance }}</p>
+        <p><strong>Is Late:</strong> {{ $absence->is_late }}</p>
+        
+        <div class="mt-4">
+            <a href="{{ route('absence.index') }}" class="bg-yellow-500 text-white px-4 py-2 rounded">Back</a>
+        </div>
+    </div>
 </div>
 @endsection
