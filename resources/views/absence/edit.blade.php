@@ -13,9 +13,6 @@
         </svg>
         <h1 class="text-xl font-extrabold text-gray-900 ml-2">Update Attendance</h1>
     </div>
-<<<<<<< Updated upstream
-nutes()).padStart(2, '0');
-=======
 
     <form action="{{ route('absence.edit') }}" method="POST" class="space-y-4">
         @csrf
@@ -97,7 +94,6 @@ nutes()).padStart(2, '0');
         const now = new Date();
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
->>>>>>> Stashed changes
         timeInput.value = `${hours}:${minutes}`;
     });
 </script>

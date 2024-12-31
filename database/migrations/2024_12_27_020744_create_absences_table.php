@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('absences', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->time('time');
             $table->enum('attendance', ['present', 'sick', 'vacation', 'alpha']);
             $table->boolean('is_late');
+            $table->unsignedBigInteger('last_division');
             $table->unsignedBigInteger('current_division');
-            $table->unsignedBigInteger('id_karyawan');
+            $table->unsignedBigInteger('id_employee');
             $table->unsignedBigInteger('shift_id');
             $table->foreign('current_division')->references('id')->on('divisions')->onDelete('cascade');
-            $table->foreign('id_karyawan')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('id_employee')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('shift_id')->references('id')->on('shifts')->onDelete('cascade');
             $table->timestamps();
         });
