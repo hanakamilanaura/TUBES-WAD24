@@ -19,7 +19,7 @@
             <td>{{ $absence->employee->name }}</td>
         </tr>
         <tr>
-            <th>last Divison</th>
+            <th>Last Divison</th>
             <td>{{ $absence->division->last_division }}</td>
         </tr>
         <tr>

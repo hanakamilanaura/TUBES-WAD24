@@ -42,21 +42,15 @@ class AbsenceController extends Controller
             'shift_id' => 'required|exists:shifts,id',
         ]);
 
-        //ambil waktu dulu
         $current_time = date('H:i:s');
 
-        //mengambil current divisi dari tabel divisi
         $last_division = Absence::where('id_employee', $request->id_employee)->orderBy('created_at', 'desc')->first();
 
-        //cek apabila null atau pertama kali
         if ($last_division == null) {
-            //buat agar dia tetap menjadi objek
             $last_division = (object) ['current_division' => $request->current_division];
         }
-        //ambil waktu shift
         $shift = Shift::find($request->shift_id);
 
-        //menghitung waktu shift dengan waktu sekarang
         $diff = strtotime($current_time) - strtotime($shift->time);
         if($diff > 0){
             $is_late = true;
@@ -65,7 +59,6 @@ class AbsenceController extends Controller
             $is_late = false;
         }
 
-        //create data
         Absence::create([
             'attendance' => $request->attendance,
             'is_late' => $is_late,

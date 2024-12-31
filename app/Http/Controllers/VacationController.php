@@ -6,6 +6,8 @@ use App\Models\Vacation;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class VacationController extends Controller
 {
@@ -84,5 +86,14 @@ class VacationController extends Controller
         $vacation = Vacation::findOrFail($id); // Mencari cuti berdasarkan ID
         $vacation->delete(); // Menghapus cuti
         return redirect()->route('vacation.index')->with('success', 'Vacation deleted successfully.'); // Mengembalikan respons kosong dengan status 204 No Content
+    }
+
+    // Export data cuti ke file PDF
+    public function exportPdf()
+    {
+        $vacations = Vacation::all(); // Mengambil semua data cuti
+        $pdf = Pdf::loadView('pdf.export-vacation', ['vacations' => $vacations]);
+        return $pdf->download('vacation-'.Carbon::now()->timestamp.'.pdf'); // Mengunduh file PDF
+
     }
 }
