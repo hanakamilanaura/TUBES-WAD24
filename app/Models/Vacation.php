@@ -9,7 +9,9 @@ class Vacation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['start_date', 'end_date', 'reason', 'status', 'id_employee', 'edit_by'];
+    // protected $fillable = ['start_date', 'end_date', 'reason', 'status', 'id_employee', 'edit_by'];
+
+    protected $guarded = ['id'];
 
     public function employee()
     {
@@ -17,6 +19,11 @@ class Vacation extends Model
     }
 
     public function user()
+    {
+        return $this->belongsTo(User::class, 'edit_by');
+    }
+
+    public function editor()
     {
         return $this->belongsTo(User::class, 'edit_by');
     }

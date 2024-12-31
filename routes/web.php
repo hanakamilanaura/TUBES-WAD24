@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\VacationController;
@@ -23,8 +25,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 Route::get('/vacation', [VacationController::class, 'index'])->name('vacation.index');
 Route::get('/vacation/create', [VacationController::class, 'create'])->name('vacation.create');
+Route::post('/vacation/store', [VacationController::class, 'store'])->name('vacation.store');
+Route::get('/vacation/{id}/edit', [VacationController::class, 'edit'])->name('vacation.edit');
+Route::put('/vacation/{id}/update', [VacationController::class, 'update'])->name('vacation.update');
+Route::delete('/vacation/{id}/destroy', [VacationController::class, 'destroy'])->name('vacation.destroy');
+Route::get('/vacation/{id}', [VacationController::class, 'show'])->name('vacation.show');
 Route::post('/vacation/store', [VacationController::class, 'store'])->name('vacation.store');
 Route::get('/vacation/{id}/edit', [VacationController::class, 'edit'])->name('vacation.edit');
 Route::put('/vacation/{id}/update', [VacationController::class, 'update'])->name('vacation.update');
@@ -45,6 +54,22 @@ Route::get('/division/{id}/edit', [DivisionController::class, 'edit'])->name('di
 Route::put('/division/{id}/update', [DivisionController::class, 'update'])->name('division.update');
 Route::delete('/division/{id}/destroy', [DivisionController::class, 'destroy'])->name('division.destroy');
 
+Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
+Route::get('/employee/{id}/edit)', [EmployeeController::class, 'edit'])->name('employee.edit');
+Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');
+Route::post('/employee/store', [EmployeeController::class, 'store'])->name('employee.store');
+Route::get('/employee/{id}/update', [EmployeeController::class, 'update'])->name('employee.update');
+Route::delete('/employee/{id}/destroy', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+Route::get('/employee/{id}', [EmployeeController::class, 'show'])->name('employee.show');
+
+
+Route::get('/shift', [ShiftController::class, 'index'])->name('shift.index');
+Route::get('/shift/create', [ShiftController::class, 'create'])->name('shift.create');
+Route::post('/shift/store', [ShiftController::class, 'store'])->name('shift.store');
+Route::get('/shift/{id}/edit', [ShiftController::class, 'edit'])->name('shift.edit');
+Route::put('/shift/{id}/update', [ShiftController::class, 'update'])->name('shift.update');
+Route::delete('/shift/{id}/destroy', [ShiftController::class, 'destroy'])->name('shift.destroy');
+Route::get('/shift/{id}', [ShiftController::class, 'show'])->name('shift.show');
 Route::get('/employee', [EmployeeController::class, 'index'])->name('employee.index');
 Route::get('/employee/{id}/edit)', [EmployeeController::class, 'edit'])->name('employee.edit');
 Route::get('/employee/create', [EmployeeController::class, 'create'])->name('employee.create');

@@ -9,7 +9,7 @@ class Shift extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'start_hour', 'end_hour'];
+    protected $fillable = ['name', 'shift_start', 'shift_end'];
 
     public function absences()
     {

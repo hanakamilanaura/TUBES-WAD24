@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vacation;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VacationController extends Controller
 {
@@ -28,20 +29,35 @@ class VacationController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'reason' => 'required|string|max:255',
             'status' => 'required|string|max:255',
-            'id_employee' => 'required|exists:employees,id',
-            'edit_by' => 'required|exists:users,id',
+            'id_employee' => 'required|exists:employees,id'
         ]);
 
-        // Membuat cuti baru
-        $vacation = Vacation::create($request->all());
-        return redirect()->route('vacation.create')->with('success', 'Vacation created successfully.');
+        $user = Auth::user();
+
+        Vacation::create([
+            'id_employee' => $request->id_employee,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'reason' => $request->reason,
+            'status' => $request->status,
+            'edit_by' => $user->id
+        ]);
+
+        return redirect()->route('vacation.index')->with('success', 'Vacation created successfully.');
     }
 
     // Menampilkan cuti berdasarkan ID
     public function show($id)
     {
         $vacation = Vacation::with(['employee', 'editor'])->findOrFail($id); // Mencari cuti berdasarkan ID
-        return view('vacation.index', compact('vacation')); // Menampilkan data cuti dalam view
+        return view('vacation.show', compact('vacation')); // Menampilkan data cuti dalam view
+    }
+
+    // Menampilkan form untuk mengedit karyawan
+    public function edit($id)
+    {
+        $vacation = Vacation::with('employee')->findOrFail($id); // Mencari karyawan berdasarkan ID
+        return view('vacation.update', compact('vacation')); // Mengembalikan tampilan untuk form edit
     }
 
     // Memperbarui cuti di database

@@ -19,14 +19,7 @@
 
         <div>
             <label for="id_employee" class="block text-sm font-medium text-gray-700">Employee</label>
-            <select id="id_employee" name="id_employee" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="">Select Employee</option>
-                @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}" {{ $vacation->id_employee == $employee->id ? 'selected' : '' }}>
-                        {{ $employee->name }}
-                    </option>
-                @endforeach
-            </select>
+            <input type="text" id="start_date" name="start_date" value="{{ $vacation->employee->name }}" readonly class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
         </div>
 
         <div>
