@@ -76,51 +76,69 @@ class AbsenceController extends Controller
     public function show($id)
     {
         $absences = Absence::with('employee', 'division', 'shift')->find($id);
-        return view('absence.show', compact('absences', 'employees', 'divisions', 'shifts', 'attendances'));
+
+        $employees = Employee::all();
+        $divisions = Division::all();
+        $shifts = Shift::all();
+        $attendances = ['present', 'sick', 'vacation', 'alpha'];
+        $islates = ['On Time', 'Late'];
+        return view('absence.show', compact('absences', 'employees', 'divisions', 'shifts', 'attendances', 'islates'));
     }
 
     public function edit($id)
     {
-        $absences = Absence::find($id);
+
+        $absences = Absence::findOrFail($id); 
+        $employees = Employee::all();
         $divisions = Division::all();
         $shifts = Shift::all();
         $attendances = ['present', 'sick', 'vacation', 'alpha'];
-        return view('absence.edit', compact('absences', 'divisions', 'shifts', 'attendances'));
+        $islates = ['On Time', 'Late'];
+        return view('absence.edit', compact('absences', 'employees', 'divisions', 'shifts', 'attendances', 'islates')); // Mengembalikan tampilan untuk form edit
     }
 
     public function update(Request $request, $id)
-{
-    $request->validate([
-        'attendance' => 'required',
-        'current_division' => 'required|exists:divisions,id',
-        'shift_id' => 'required|exists:shifts,id',
-    ]);
+    {
+        $request->validate([
+            'attendance' => 'required',
+            'current_division' => 'required',
+            'id_employee' => 'required',
+            'shift_id' => 'required',
+        ]);
 
-    // Find the absence record by ID
-    $absence = Absence::find($id);
+        $absences = Absence::find($id);
 
-    // Update the absence record with the new data
-    $absence->update($request->all());
+        //ambil waktu dulu
+        $current_time = date('H:i:s');
 
-    // Get the shift associated with the absence
-    $shift = Shift::find($request->shift_id);
+        //mengambil current divisi dari tabel divisi
+        $last_division = Absence::where('id_employee', $request->id_employee)->orderBy('created_at', 'desc')->first();
 
-    // Get the current time
-    $current_time = now()->format('H:i:s');
+        //cek apabila null atau pertama kali
+        if ($last_division == null) {
+            //buat agar dia tetap menjadi objek
+            $last_division = (object) ['current_division' => $request->current_division];
+        }
+        //ambil waktu shift
+        $shift = Shift::find($request->shift_id);
 
-    // Calculate the difference between the current time and the shift time
-    $absence_time = $absence->created_at->format('H:i:s');
-    $diff = strtotime($absence_time) - strtotime($shift->time);
+        //menghitung waktu shift dengan waktu sekarang
+        $diff = strtotime($current_time) - strtotime($shift->time);
+        if($diff > 0){
+            $is_late = true;
+        }else{
+            $is_late = false;
+        }
 
-    // Determine if the absence is late
-    $is_late = $diff > 0 ? true : false;
+        $absences->update([
+            'attendance' => $request->attendance,
+            'is_late' => $is_late,
+            'last_division' => $last_division->current_division,
+            'current_division' => $request->current_division,
+            'id_employee' => $request->id_employee,
+            'shift_id' => $request->shift_id,
+        ]);
 
-    // Update the is_late field in the absence record
-    $absence->is_late = $is_late;
-    $absence->save();
-
-    return redirect()->route('absence.index')->with('success', 'Absence updated successfully.');
-}
 
 
     public function destroy($id)
@@ -131,10 +149,5 @@ class AbsenceController extends Controller
         return redirect()->route('absence.index')->with('success', 'Absence deleted successfully.');
     }
 
-    public function dashboard()
-    {
-        $totalAbsences = Absence::count();
-
-        return view('dashboard.index', compact('totalAbsences'));
-    }
 }
+
