@@ -45,4 +45,9 @@
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
+nutes()).padStart(2, '0');
+        timeInput.value = `${hours}:${minutes}`;
+    });
+</script>
+
 @endsection

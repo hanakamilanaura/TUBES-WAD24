@@ -73,4 +73,13 @@ class EmployeeController extends Controller
 
         return redirect()->route('employee.index')->with('success', 'Employee deleted successfully.'); // Redirect dengan pesan sukses
     }
+
+    public function dashboard()
+    {
+        $totalEmployees = Employee::count();
+        $activeEmployees = Employee::where('status', 'active')->count();
+        $inactiveEmployees = Employee::where('status', 'inactive')->count();
+
+        return view('dashboard.index', compact('totalEmployees', 'activeEmployees', 'inactiveEmployees'));
+    }
 }
