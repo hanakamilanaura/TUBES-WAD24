@@ -17,6 +17,7 @@
     <form action="{{ route('absence.update', $absences->id) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
+
         <div>
             <label for="id_employee" class="block text-sm font-medium text-gray-700">Nama</label>
             <input type="id_employee" id="id_employee" name="id_employee" value="{{ ($absences->employee)->name }}" required placeholder="Masukkan nama karyawan" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
@@ -30,12 +31,14 @@
         <div>
             <label for="current_division" class="block text-sm font-medium text-gray-700">Division</label>
             <select id="current_division" name="current_division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+
                 <option value="">Select Division</option>
-            @foreach($divisions as $division)
-                    <option value="{{ $division->id }}">{{ $division->name }}</option>
-            @endforeach
+                @foreach($divisions as $division)
+                    <option value="{{ $division->id }}" {{ $absences->current_division == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
+                @endforeach
             </select>
         </div>
+
 
         <!-- <div>
             <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
@@ -61,6 +64,7 @@
         <div>
             <label for="attendance" class="block text-sm font-medium text-gray-700">Attendance</label>
             <select id="attendance" name="attendance" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+
                 <option value="present">Present</option>
                 <option value="sick">Sick</option>
                 <option value="vacation">Vacation</option>
@@ -73,6 +77,7 @@
             <select id="is_late" name="is_late" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="Present">On Time</option>
                 <option value="Permission">Late</option>
+
             </select>
         </div> -->
 

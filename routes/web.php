@@ -33,12 +33,14 @@ Route::get('/vacation/{id}/edit', [VacationController::class, 'edit'])->name('va
 Route::put('/vacation/{id}/update', [VacationController::class, 'update'])->name('vacation.update');
 Route::delete('/vacation/{id}/destroy', [VacationController::class, 'destroy'])->name('vacation.destroy');
 Route::get('/vacation/{id}', [VacationController::class, 'show'])->name('vacation.show');
+Route::get('/export-pdf', [VacationController::class, 'exportPdf']);
 
 Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
 Route::get('/absence/create', [AbsenceController::class, 'create'])->name('absence.create');
 Route::post('/absence/store', [AbsenceController::class, 'store'])->name('absence.store');
 Route::put('/absence/{id}/update', [AbsenceController::class, 'update'])->name('absence.update');
 Route::get('/absence/{id}/edit', [AbsenceController::class, 'edit'])->name('absence.edit');
+
 Route::delete('/absence/{id}/destroy', [AbsenceController::class, 'destroy'])->name('absence.destroy');
 Route::get('/absence/{id}', [AbsenceController::class, 'show'])->name('absence.show');
 

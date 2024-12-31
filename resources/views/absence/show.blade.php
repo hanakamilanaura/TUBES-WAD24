@@ -13,6 +13,7 @@
         </svg>
         <h1 class="text-xl font-extrabold text-gray-900 ml-2">Details Attendance</h1>
     </div>
+
     <div class="bg-white p-4 rounded-md shadow">
         @foreach($absences as $absence)
                 <p><strong>ID:</strong> {{ $absence->id }}</p>
@@ -29,5 +30,6 @@
             </div>
         @endforeach
     </div>
+
 </div>
 @endsection

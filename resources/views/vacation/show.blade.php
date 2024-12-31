@@ -21,7 +21,7 @@
         <p><strong>Status:</strong> {{ $vacation->status }}</p>
         <p><strong>Tanggal Mulai:</strong> {{ $vacation->start_date }}</p>
         <p><strong>Tanggal Selesai:</strong> {{ $vacation->end_date }}</p>
-        <p><strong>Keterangan:</strong> {{ $vacation->description }}</p>
+        <p><strong>Keterangan:</strong> {{ $vacation->reason }}</p>
         
         <div class="mt-4">
             <a href="{{ route('vacation.index') }}" class="bg-yellow-500 text-white px-4 py-2 rounded">Kembali</a>
