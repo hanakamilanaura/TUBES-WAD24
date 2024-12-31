@@ -71,21 +71,21 @@
             <header class="flex justify-between items-start mb-2">
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Vacation Statistics</h2>
             </header>
+            <div class="grow max-sm:max-h-[180px] xl:max-h-[180px]">
+                <canvas id="vacation-statistics-chart" width="400" height="200"></canvas>
+            </div>
             <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Approved Vacations</div>
             <div class="flex items-start mb-2">
-                <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $approvedVacations }}</div>
+                <div class="text-xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $approvedVacations }}</div>
             </div>
             <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Rejected Vacations</div>
             <div class="flex items-start mb-2">
-                <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $rejectedVacations }}</div>
+                <div class="text-xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $rejectedVacations }}</div>
             </div>
             <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Pending Vacations</div>
             <div class="flex items-start mb-4">
-                <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $pendingVacations }}</div>
+                <div class="text-xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $pendingVacations }}</div>
             </div>
-        </div>
-        <div class="grow max-sm:max-h-[128px] xl:max-h-[128px]">
-            <canvas id="vacation-statistics-chart" width="389" height="128"></canvas>
         </div>
     </div>
 
@@ -105,12 +105,25 @@
                 }]
             },
             options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    },
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw;
+                        }
+                    }
                 }
+            }
             }
         });
     </script>
