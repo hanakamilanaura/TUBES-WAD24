@@ -41,15 +41,20 @@
                 @foreach($absences as $absence)
                     <tr>
                         <td class="py-2 px-4 border-b">{{ $absence->employee->name }}</td>
-                        <td class="py-2 px-4 border-b">{{ $absence->division->last_division }}</td>
-                        <td class="py-2 px-4 border-b">{{ $absence->division->current_division }}</td>
-                        <td class="py-2 px-4 border-b">{{ $absence->time}}</td>
-                        <td class="py-2 px-4 border-b">{{ $absence->date }}</td>
-                        <td class="py-2 px-4 border-b">{{ $absence->shift->shift }}</td>
+                        <td class="py-2 px-4 border-b">{{ $absence->lastDivision->name }}</td>
+                        <td class="py-2 px-4 border-b">{{ $absence->division->name }}</td>
+                        <td class="py-2 px-4 border-b">{{ $absence->created_at->format('H:i') }}</td>
+                        <td class="py-2 px-4 border-b">{{ $absence->created_at->format('l, d F Y') }}</td>
+                        <td class="py-2 px-4 border-b">{{ $absence->shift->name }}</td>
                         <td class="py-2 px-4 border-b">{{ $absence->attendance }}</td>
-                        <td class="py-2 px-4 border-b">{{ $absence->is_late }}</td>
+                        @if ($absence->is_late == 1)
+                            <td class="py-2 px-4 border-b">Yes</td>
+                        @else
+                            <td class="py-2 px-4 border-b">No</td>
+                        @endif
                         <td class="py-2 px-4 border-b">
-                            <a href="{{ route('absence.edit', $absence->id) }}" class="text-blue-500">Edit</a>
+                            <a href="{{ route('absence.show', $absence->id) }}" class="text-blue-500">Lihat</a>
+                            <a href="{{ route('absence.edit', $absence->id) }}" class="text-yellow-500">Edit</a>
                             <form action="{{ route('absence.destroy', $absence->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this attendance?');">
                                 @csrf
                                 @method('DELETE')

@@ -13,7 +13,9 @@ class AbsenceController extends Controller
 {
     public function index()
     {
-        $absences = Absence::with(['employee', 'division', 'shift'])->get();
+        $absences = Absence::with(['employee', 'division', 'shift'])
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('absence.index', compact('absences'));
     }
 
@@ -29,54 +31,117 @@ class AbsenceController extends Controller
 
     public function store(Request $request)
     {   
-        
         $request->validate([
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i:s',
-            'attendance' => 'required|string',
-            'is_late' => 'required|string',
-            'last_division' => 'required|integer|min:0|exists:divisions,id',
-            'current_division' => 'required|integer|min:0|exists:divisions,id',
-            'id_employee' => 'required|integer|min:0|exists:employees,id',
-            'shift_id' => 'required|integer|min:0|exists:shifts,id',
+            // 'date' => 'required|date',
+            // 'time' => 'required|date_format:H:i:s',
+            'attendance' => 'required',
+            // 'is_late' => 'required|boolean',
+            // 'last_division' => 'required',
+            'current_division' => 'required|exists:divisions,id',
+            'id_employee' => 'required|exists:employees,id',
+            'shift_id' => 'required|exists:shifts,id',
         ]);
 
-        Absence::create(attributes: $request->all());
+        //ambil waktu dulu
+        $current_time = date('H:i:s');
+
+        //mengambil current divisi dari tabel divisi
+        $last_division = Absence::where('id_employee', $request->id_employee)->orderBy('created_at', 'desc')->first();
+
+        //cek apabila null atau pertama kali
+        if ($last_division == null) {
+            //buat agar dia tetap menjadi objek
+            $last_division = (object) ['current_division' => $request->current_division];
+        }
+        //ambil waktu shift
+        $shift = Shift::find($request->shift_id);
+
+        //menghitung waktu shift dengan waktu sekarang
+        $diff = strtotime($current_time) - strtotime($shift->time);
+        if($diff > 0){
+            $is_late = true;
+
+        }else{
+            $is_late = false;
+        }
+
+        //create data
+        Absence::create([
+            'attendance' => $request->attendance,
+            'is_late' => $is_late,
+            'last_division' => $last_division->current_division,
+            'current_division' => $request->current_division,
+            'id_employee' => $request->id_employee,
+            'shift_id' => $request->shift_id,
+        ]);
+
+        // Absence::create(attributes: $request->all());
         return redirect()->route('absence.index')->with('success', 'Absence created successfully.');
     }
 
     public function show($id)
     {
         $absences = Absence::with('employee', 'division', 'shift')->find($id);
-        return view('absence.show', compact('absences', 'employees', 'divisions', 'shifts', 'attendances', 'islates'));
-    }
-
-    public function edit($id)
-    {
-        $absences = Absence::find($id);
         $employees = Employee::all();
         $divisions = Division::all();
         $shifts = Shift::all();
         $attendances = ['present', 'sick', 'vacation', 'alpha'];
         $islates = ['On Time', 'Late'];
-        return view('absence.edit', compact('absences', 'employees', 'divisions', 'shifts', 'attendances', 'islates'));
+        return view('absence.show', compact('absences', 'employees', 'divisions', 'shifts', 'attendances', 'islates'));
+    }
+
+    public function edit($id)
+    {
+        $absences = Absence::findOrFail($id); 
+        $employees = Employee::all();
+        $divisions = Division::all();
+        $shifts = Shift::all();
+        $attendances = ['present', 'sick', 'vacation', 'alpha'];
+        $islates = ['On Time', 'Late'];
+        return view('absence.edit', compact('absences', 'employees', 'divisions', 'shifts', 'attendances', 'islates')); // Mengembalikan tampilan untuk form edit
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
-            'attendance' => 'required|string',
-            'is_late' => 'required|string',
-            'last_division' => 'required|integer|min:0|exists:divisions,id',
-            'current_division' => 'required|integer|min:0|exists:divisions,id',
-            'id_employee' => 'required|integer|min:0|exists:employees,id',
-            'shift_id' => 'required|integer|min:0|exists:shifts,id',
+            'attendance' => 'required',
+            'current_division' => 'required',
+            'id_employee' => 'required',
+            'shift_id' => 'required',
         ]);
 
         $absences = Absence::find($id);
-        $absences->update($request->all());
+
+        //ambil waktu dulu
+        $current_time = date('H:i:s');
+
+        //mengambil current divisi dari tabel divisi
+        $last_division = Absence::where('id_employee', $request->id_employee)->orderBy('created_at', 'desc')->first();
+
+        //cek apabila null atau pertama kali
+        if ($last_division == null) {
+            //buat agar dia tetap menjadi objek
+            $last_division = (object) ['current_division' => $request->current_division];
+        }
+        //ambil waktu shift
+        $shift = Shift::find($request->shift_id);
+
+        //menghitung waktu shift dengan waktu sekarang
+        $diff = strtotime($current_time) - strtotime($shift->time);
+        if($diff > 0){
+            $is_late = true;
+        }else{
+            $is_late = false;
+        }
+
+        $absences->update([
+            'attendance' => $request->attendance,
+            'is_late' => $is_late,
+            'last_division' => $last_division->current_division,
+            'current_division' => $request->current_division,
+            'id_employee' => $request->id_employee,
+            'shift_id' => $request->shift_id,
+        ]);
 
         return redirect()->route('absence.index')->with('success', 'Absence updated successfully.');
     }

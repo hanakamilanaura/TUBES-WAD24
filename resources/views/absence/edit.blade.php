@@ -14,27 +14,22 @@
         <h1 class="text-xl font-extrabold text-gray-900 ml-2">Update Attendance</h1>
     </div>
 
-    <form action="{{ route('absence.edit') }}" method="POST" class="space-y-4">
+    <form action="{{ route('absence.update', $absences->id) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
         <div>
-            <label for="employee" class="block text-sm font-medium text-gray-700">Employee</label>
-            <select id="employee" name="employee" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="">Select Employee</option>
-            @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-            @endforeach
-            </select>
+            <label for="id_employee" class="block text-sm font-medium text-gray-700">Nama</label>
+            <input type="id_employee" id="id_employee" name="id_employee" value="{{ ($absences->employee)->name }}" required placeholder="Masukkan nama karyawan" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
         </div>
 
-        <div>
+        <!-- <div>
             <label for="last_division" class="block text-sm font-medium text-gray-700">Last Division</label>
-            <input type="text" id="last_division" name="last_division" required placeholder="Last Division" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-        </div>
+            <input type="text" id="last_division" name="last_division" value="{{ ($absences->division)->name }}" required placeholder="Last Division" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+        </div> -->
 
         <div>
-            <label for="division" class="block text-sm font-medium text-gray-700">Division</label>
-            <select id="division" name="division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="current_division" class="block text-sm font-medium text-gray-700">Division</label>
+            <select id="current_division" name="current_division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Division</option>
             @foreach($divisions as $division)
                     <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -42,23 +37,23 @@
             </select>
         </div>
 
-        <div>
+        <!-- <div>
             <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
             <input type="time" id="time" name="time" required placeholder="Time" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"></input>
-        </div>
+        </div> -->
 
         
-        <div>
+        <!-- <div>
             <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
             <input type="date" id="date" name="date" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-        </div>
+        </div> -->
 
         <div>
-            <label for="shift" class="block text-sm font-medium text-gray-700">Shift</label>
-            <select id="shift" name="shift" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <label for="shift_id" class="block text-sm font-medium text-gray-700">Shift</label>
+            <select id="shift_id" name="shift_id" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Shift</option>
             @foreach($shifts as $shift)
-                    <option value="{{ $shift->id }}">{{ $division->name }}</option>
+                    <option value="{{ $shift->id }}">{{ $shift->name }}</option>
             @endforeach
             </select>
         </div>
@@ -66,20 +61,20 @@
         <div>
             <label for="attendance" class="block text-sm font-medium text-gray-700">Attendance</label>
             <select id="attendance" name="attendance" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="Present">Present</option>
-                <option value="Permission">Permission</option>
-                <option value="Sick">Sick</option>
-                <option value="Absent">Absent</option>
+                <option value="present">Present</option>
+                <option value="sick">Sick</option>
+                <option value="vacation">Vacation</option>
+                <option value="alpha">Alpha</option>
             </select>
         </div>
 
-        <div>
+        <!-- <div>
             <label for="is_late" class="block text-sm font-medium text-gray-700">Is Late</label>
             <select id="is_late" name="is_late" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="Present">On Time</option>
                 <option value="Permission">Late</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="d-flex justify-content-between mt-4">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>

@@ -20,7 +20,7 @@
     </div>
 @endif
 
-<div class="overflow-x-auto mb-4">
+<div class="mt-4 mb-4">
     <a href="{{ route('employee.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Tambah Karyawan</a>
 </div>
 
