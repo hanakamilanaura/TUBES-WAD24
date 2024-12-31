@@ -14,70 +14,39 @@
         <h1 class="text-xl font-extrabold text-gray-900 ml-2">Update Attendance</h1>
     </div>
 
-    <form action="{{ route('absence.edit') }}" method="POST" class="space-y-4">
+    <form action="{{ route('absence.update', $absences->id) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
-        <div>
-            <label for="employee" class="block text-sm font-medium text-gray-700">Employee</label>
-            <select id="employee" name="employee" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="">Select Employee</option>
-            @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-            @endforeach
-            </select>
-        </div>
 
-        <div>
-            <label for="last_division" class="block text-sm font-medium text-gray-700">Last Division</label>
-            <input type="text" id="last_division" name="last_division" required placeholder="Last Division" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-        </div>
+        <input type="hidden" name="id" value="{{ $absences->id }}">
 
         <div>
             <label for="division" class="block text-sm font-medium text-gray-700">Division</label>
-            <select id="division" name="division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <select id="division" name="current_division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Division</option>
-            @foreach($divisions as $division)
-                    <option value="{{ $division->id }}">{{ $division->name }}</option>
-            @endforeach
+                @foreach($divisions as $division)
+                    <option value="{{ $division->id }}" {{ $absences->current_division == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
+                @endforeach
             </select>
-        </div>
-
-        <div>
-            <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
-            <input type="time" id="time" name="time" required placeholder="Time" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50"></input>
-        </div>
-
-        
-        <div>
-            <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
-            <input type="date" id="date" name="date" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
         </div>
 
         <div>
             <label for="shift" class="block text-sm font-medium text-gray-700">Shift</label>
-            <select id="shift" name="shift" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
+            <select id="shift" name="shift_id" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Shift</option>
-            @foreach($shifts as $shift)
-                    <option value="{{ $shift->id }}">{{ $division->name }}</option>
-            @endforeach
+                @foreach($shifts as $shift)
+                    <option value="{{ $shift->id }}" {{ $absences->shift_id == $shift->id ? 'selected' : '' }}>{{ $shift->name }}</option>
+                @endforeach
             </select>
         </div>
 
         <div>
             <label for="attendance" class="block text-sm font-medium text-gray-700">Attendance</label>
             <select id="attendance" name="attendance" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="Present">Present</option>
-                <option value="Permission">Permission</option>
-                <option value="Sick">Sick</option>
-                <option value="Absent">Absent</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="is_late" class="block text-sm font-medium text-gray-700">Is Late</label>
-            <select id="is_late" name="is_late" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="Present">On Time</option>
-                <option value="Permission">Late</option>
+                <option value="Present" {{ $absences->attendance == 'Present' ? 'selected' : '' }}>Present</option>
+                <option value="Permission" {{ $absences->attendance == 'Permission' ? 'selected' : '' }}>Permission</option>
+                <option value="Sick" {{ $absences->attendance == 'Sick' ? 'selected' : '' }}>Sick</option>
+                <option value="Absent" {{ $absences->attendance == 'Absent' ? 'selected' : '' }}>Absent</option>
             </select>
         </div>
 
