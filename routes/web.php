@@ -40,9 +40,9 @@ Route::delete('/vacation/{id}/destroy', [VacationController::class, 'destroy'])-
 Route::get('/vacation/{id}', [VacationController::class, 'show'])->name('vacation.show');
 
 Route::get('/absence', [AbsenceController::class, 'index'])->name('absence.index');
-Route::get('/absence/create', [AbsenceController::class, 'getCreateForm'])->name('absence.create');
-Route::post('/absence', [AbsenceController::class, 'store'])->name('absence.store');
-Route::get('/absence/{id}/edit', [AbsenceController::class, 'getEditForm'])->name('absence.edit');
+Route::get('/absence/create', [AbsenceController::class, 'create'])->name('absence.create');
+Route::post('/absence/store', [AbsenceController::class, 'store'])->name('absence.store');
+Route::get('/absence/{id}/edit', [AbsenceController::class, 'edit'])->name('absence.edit');
 Route::put('/absence/{id}', [AbsenceController::class, 'update'])->name('absence.update');
 Route::delete('/absence/{id}', [AbsenceController::class, 'destroy'])->name('absence.destroy');
 

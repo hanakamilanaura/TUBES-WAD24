@@ -18,7 +18,6 @@
             {{ session('success') }}
         </div>
     @endif
-
     <div class="mb-4">
         <a href="{{ route('division.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Division</a>
     </div>
