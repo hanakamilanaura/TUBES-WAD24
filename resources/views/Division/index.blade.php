@@ -12,7 +12,7 @@
                 </linearGradient>
             </defs>
         </svg>
-        <h1 class="text-xl font-extrabold text-gray-900">Division Management</h1>
+        <h1 class="text-xl font-extrabold text-gray-900 ml-2">Division</h1>
     </div>
 
     @if (session('success'))
@@ -84,7 +84,8 @@
                         <td class="py-2 px-4 border-b">{{ $division->name }}</td>
                         <td class="py-2 px-4 border-b">{{ $division->description }}</td>
                         <td class="py-2 px-4 border-b">
-                            <a href="{{ route('division.edit', $division->id) }}" class="text-blue-500">Edit</a>
+                            <a href="{{ route('division.show', $division->id) }}" class="text-blue-500">Lihat</a>
+                            <a href="{{ route('division.edit', $division->id) }}" class="text-yellow-500">Edit</a>
                             <form action="{{ route('division.destroy', $division->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this division?');">
                                 @csrf
                                 @method('DELETE')

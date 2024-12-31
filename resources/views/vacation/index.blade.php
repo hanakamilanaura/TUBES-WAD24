@@ -52,7 +52,8 @@
                         <td class="py-2 px-4 border-b">Rejected</td>
                         @endif
                         <td class="py-2 px-4 border-b">
-                            <a href="{{ route('vacation.edit', $vacation->id) }}" class="text-blue-500">Edit</a>
+                            <a href="{{ route('vacation.show', $vacation->id) }}" class="text-blue-500">Lihat</a>
+                            <a href="{{ route('vacation.edit', $vacation->id) }}" class="text-yellow-500">Edit</a>
                             <form action="{{ route('vacation.destroy', $vacation->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this vacation?');">
                                 @csrf
                                 @method('DELETE')
