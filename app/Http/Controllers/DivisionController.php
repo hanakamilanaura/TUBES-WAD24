@@ -12,13 +12,13 @@ class DivisionController extends Controller
     public function index()
     {
         $divisions = Division::all(); // Mengambil semua data divisi
-        return view('division.index', compact('divisions')); // Mengembalikan tampilan dengan data divisi
+        return view('Division.index', compact('divisions')); // Mengembalikan tampilan dengan data divisi
     }
 
     // Menampilkan form untuk menambahkan divisi baru
     public function create()
     {
-        return view('division.create'); // Mengembalikan tampilan untuk form pembuatan divisi
+        return view('Division.create'); // Mengembalikan tampilan untuk form pembuatan divisi
     }
 
     // Menyimpan divisi baru ke database
@@ -36,22 +36,22 @@ class DivisionController extends Controller
             'name' => $request->name,
             'description' => $request->description,
         ]);
-        return redirect()->route('division.index')->with('success', 'Division created successfully.'); // Redirect dengan pesan sukses
+        return redirect()->route('Division.index')->with('success', 'Division created successfully.'); // Redirect dengan pesan sukses
     }
 
     // Menampilkan divisi berdasarkan ID
     public function show($id)
     {
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        return view('division.show', compact('division')); // Mengembalikan tampilan dengan data divisi
+        return view('Division.show', compact('division')); // Mengembalikan tampilan dengan data divisi
     }
 
     // Menampilkan form untuk mengedit divisi
     public function edit($id)
     {
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        return view('division.edit', compact('division')); // Mengembalikan tampilan untuk form edit
-        return view('division.update', compact('division')); // Mengembalikan tampilan untuk form edit
+        return view('Division.edit', compact('division')); // Mengembalikan tampilan untuk form edit
+ // Mengembalikan tampilan untuk form edit
     }
 
     // Memperbarui divisi di database
@@ -70,7 +70,7 @@ class DivisionController extends Controller
             'description' => $request->description,
         ]); // Memperbarui data shift
 
-        return redirect()->route('division.index')->with('success', 'Division updated successfully.'); // Redirect dengan pesan sukses
+        return redirect()->route('Division.index')->with('success', 'Division updated successfully.'); // Redirect dengan pesan sukses
     }
 
     // Menghapus divisi dari database
@@ -79,6 +79,6 @@ class DivisionController extends Controller
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
         $division->delete(); // Menghapus divisi
 
-        return redirect()->route('division.index')->with('success', 'Division deleted successfully.'); // Redirect dengan pesan sukses
+        return redirect()->route('Division.index')->with('success', 'Division deleted successfully.'); // Redirect dengan pesan sukses
     }
 }
