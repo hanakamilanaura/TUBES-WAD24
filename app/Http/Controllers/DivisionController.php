@@ -32,10 +32,6 @@ class DivisionController extends Controller
 
         // Membuat divisi baru
         Division::create($request->all());
-        Division::create([
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
         return redirect()->route('Division.index')->with('success', 'Division created successfully.'); // Redirect dengan pesan sukses
     }
 
@@ -50,7 +46,7 @@ class DivisionController extends Controller
     public function edit($id)
     {
         $division = Division::findOrFail($id); // Mencari divisi berdasarkan ID
-        return view('Division.edit', compact('division')); // Mengembalikan tampilan untuk form edit
+        return view('Division.update', compact('division')); // Mengembalikan tampilan untuk form edit
  // Mengembalikan tampilan untuk form edit
     }
 
