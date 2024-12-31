@@ -9,7 +9,7 @@ class Absence extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date', 'time', 'attendance', 'is_late', 'last_division','current_division', 'id_karyawan', 'shift_id'];
+    protected $guarded = ['id'];
 
     public function employee()
     {
