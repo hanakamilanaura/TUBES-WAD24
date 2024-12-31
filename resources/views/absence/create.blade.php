@@ -31,12 +31,13 @@
             <input type="text" id="last_division" name="last_division" required placeholder="Last Division" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
         </div>
 
+
         <div>
             <label for="division" class="block text-sm font-medium text-gray-700">Division</label>
             <select id="division" name="division" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Division</option>
             @foreach($divisions as $division)
-                    <option value="{{ $division->id }}">{{ $division->name }}</option>
+                <option value="{{ $division->id }}">{{ $division->name }}</option>
             @endforeach
             </select>
         </div>
@@ -57,7 +58,7 @@
             <select id="shift" name="shift" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
                 <option value="">Select Shift</option>
             @foreach($shifts as $shift)
-                    <option value="{{ $shift->id }}">{{ $division->name }}</option>
+                    <option value="{{ $shift->id }}">{{ $shift->name }}</option>
             @endforeach
             </select>
         </div>
@@ -65,10 +66,10 @@
         <div>
             <label for="attendance" class="block text-sm font-medium text-gray-700">Attendance</label>
             <select id="attendance" name="attendance" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50">
-                <option value="Present">Present</option>
-                <option value="Permission">Permission</option>
-                <option value="Sick">Sick</option>
-                <option value="Absent">Absent</option>
+                <option value="present">Present</option>
+                <option value="sick">Sick</option>
+                <option value="vacation">Vacation</option>
+                <option value="alpha">Alpha</option>
             </select>
         </div>
 

@@ -22,13 +22,14 @@ class AbsenceController extends Controller
         $employees = Employee::all();
         $divisions = Division::all();
         $shifts = Shift::all();
-        $attendances = ['Present', 'Permission', 'Sick', 'Absent'];
+        $attendances = ['present', 'sick', 'vacation', 'alpha'];
         $islates = ['On Time', 'Late'];
         return view('absence.create', compact('employees', 'divisions', 'shifts', 'attendances', 'islates'));
     }
 
     public function store(Request $request)
-    {
+    {   
+        
         $request->validate([
             'date' => 'required|date',
             'time' => 'required|date_format:H:i:s',
@@ -36,11 +37,11 @@ class AbsenceController extends Controller
             'is_late' => 'required|boolean',
             'last_division' => 'required',
             'current_division' => 'required',
-            'id_karyawan' => 'required|integer',
+            'id_employee' => 'required|integer',
             'shift_id' => 'required|integer',
         ]);
 
-        Absence::create($request->all());
+        Absence::create(attributes: $request->all());
         return redirect()->route('absence.index')->with('success', 'Absence created successfully.');
     }
 
@@ -56,7 +57,7 @@ class AbsenceController extends Controller
         $employees = Employee::all();
         $divisions = Division::all();
         $shifts = Shift::all();
-        $attendances = ['Present', 'Permission', 'Sick', 'Absent'];
+        $attendances = ['present', 'sick', 'vacation', 'alpha'];
         $islates = ['On Time', 'Late'];
         return view('absence.edit', compact('absences', 'employees', 'divisions', 'shifts', 'attendances', 'islates'));
     }
@@ -70,7 +71,7 @@ class AbsenceController extends Controller
             'is_late' => 'required|boolean',
             'last_division' => 'required',
             'current_division' => 'required',
-            'id_karyawan' => 'required|integer',
+            'id_employee' => 'required|integer',
             'shift_id' => 'required|integer',
         ]);
 
