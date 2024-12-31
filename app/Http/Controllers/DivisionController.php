@@ -82,5 +82,12 @@ class DivisionController extends Controller
 
         return redirect()->route('division.index')->with('success', 'Division deleted successfully.'); // Redirect dengan pesan sukses
     }
+
+    public function dashboard()
+    {
+        $totalDivisions = Division::count();
+
+        return view('dashboard.index', compact('totalDivisions'));
+    }
 }
 

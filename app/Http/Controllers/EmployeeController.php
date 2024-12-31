@@ -77,9 +77,7 @@ class EmployeeController extends Controller
     public function dashboard()
     {
         $totalEmployees = Employee::count();
-        $activeEmployees = Employee::where('status', 'active')->count();
-        $inactiveEmployees = Employee::where('status', 'inactive')->count();
 
-        return view('dashboard.index', compact('totalEmployees', 'activeEmployees', 'inactiveEmployees'));
+        return view('dashboard.index', compact('totalEmployees'));
     }
 }

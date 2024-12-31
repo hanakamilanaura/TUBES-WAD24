@@ -19,11 +19,8 @@
     </div>
     @endif
 
-    <div class="mt-4 mb-4">
+    <div class="flex space-x-4 mt-4 mb-4">
         <a href="{{ route('vacation.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vacation</a>
-    </div>
-
-    <div class="mt-4 mb-4">
         <a href="/export-pdf" class="bg-blue-500 text-white px-4 py-2 rounded">Export to PDF</a>
     </div>
 
