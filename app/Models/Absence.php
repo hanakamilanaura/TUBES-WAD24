@@ -13,7 +13,7 @@ class Absence extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'id_karyawan');
+        return $this->belongsTo(Employee::class, 'id_employee');
     }
 
     public function division()
