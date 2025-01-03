@@ -15,4 +15,8 @@ class Division extends Model
     {
         return $this->hasMany(Absence::class, 'current_division');
     }
+    public function lastDivision()
+    {
+        return $this->hasMany(Absence::class, 'last_division');
+    }
 }

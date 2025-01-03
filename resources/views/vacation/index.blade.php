@@ -19,8 +19,9 @@
     </div>
     @endif
 
-    <div class="mt-4 mb-4">
+    <div class="flex space-x-4 mt-4 mb-4">
         <a href="{{ route('vacation.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Add New Vacation</a>
+        <a href="/export-pdf" class="bg-blue-500 text-white px-4 py-2 rounded">Export to PDF</a>
     </div>
 
     <div class="overflow-x-auto">
@@ -52,7 +53,8 @@
                         <td class="py-2 px-4 border-b">Rejected</td>
                         @endif
                         <td class="py-2 px-4 border-b">
-                            <a href="{{ route('vacation.edit', $vacation->id) }}" class="text-blue-500">Edit</a>
+                            <a href="{{ route('vacation.show', $vacation->id) }}" class="text-blue-500">Lihat</a>
+                            <a href="{{ route('vacation.edit', $vacation->id) }}" class="text-yellow-500">Edit</a>
                             <form action="{{ route('vacation.destroy', $vacation->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this vacation?');">
                                 @csrf
                                 @method('DELETE')

@@ -31,8 +31,12 @@ class DivisionController extends Controller
         ]);
 
         // Membuat divisi baru
-        Division::create($request->all());
-        return redirect()->route('Division.index')->with('success', 'Division created successfully.'); // Redirect dengan pesan sukses
+        Division::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('division.index')->with('success', 'Division created successfully.'); // Redirect dengan pesan sukses
     }
 
     // Menampilkan divisi berdasarkan ID
@@ -76,5 +80,12 @@ class DivisionController extends Controller
         $division->delete(); // Menghapus divisi
 
         return redirect()->route('Division.index')->with('success', 'Division deleted successfully.'); // Redirect dengan pesan sukses
+    }
+
+    public function dashboard()
+    {
+        $totalDivisions = Division::count();
+
+        return view('dashboard.index', compact('totalDivisions'));
     }
 }

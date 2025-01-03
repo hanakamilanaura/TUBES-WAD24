@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('absences', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('time');
+            // $table->date('date');
+            // $table->time('time');
             $table->enum('attendance', ['present', 'sick', 'vacation', 'alpha']);
             $table->boolean('is_late');
             $table->unsignedBigInteger('last_division');
